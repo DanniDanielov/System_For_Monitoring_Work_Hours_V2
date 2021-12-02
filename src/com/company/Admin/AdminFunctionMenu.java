@@ -1,14 +1,18 @@
 package com.company.Admin;
 
 import com.company.Client.ClientListClass;
+import com.company.FileAndFileFunctions.ReadWriteFile;
 import com.company.InterfacesNAbstractClass.DialogNListPrint;
 import com.company.Woker.Worker;
 
 import java.util.Scanner;
 
 public class AdminFunctionMenu extends DialogNListPrint {
+    ReadWriteFile File = new ReadWriteFile();
     private String projectName;
     AdminFunctionsWorker adminFunctionsWorker = new AdminFunctionsWorker();
+    String WorkerFilepath = "src/com/company/FileAndFileFunctions/WorkerFile.json";
+    String ClientFilepath = "src/com/company/FileAndFileFunctions/Clientsfile.json";
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
@@ -25,6 +29,7 @@ public class AdminFunctionMenu extends DialogNListPrint {
         String password = inpot.nextLine();
 
         adminFunctionsWorker.addWorker(name, password);
+        File.writeToFile(WorkerFilepath,adminFunctionsWorker.workerList);
     }
 
     private void removeWorker(Scanner inpot) throws Exception {
@@ -32,6 +37,7 @@ public class AdminFunctionMenu extends DialogNListPrint {
         String name = inpot.nextLine();
 
         adminFunctionsWorker.removeWorker(name);
+        File.writeToFile(WorkerFilepath,adminFunctionsWorker.workerList);
     }
 
     private void addClient(Scanner inpot) throws Exception {
@@ -45,6 +51,7 @@ public class AdminFunctionMenu extends DialogNListPrint {
 
         ClientListClass clientListClass = new ClientListClass();
         clientListClass.add(name, getProjectName(), dateOfExpire);
+        File.writeToFile(ClientFilepath,clientListClass.getClientList());
     }
 
     private void workerStatistic(Scanner inpot) throws Exception {
