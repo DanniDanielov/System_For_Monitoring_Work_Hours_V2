@@ -1,6 +1,7 @@
 package com.company.Woker;
 
 import com.company.Client.ClientListClass;
+import com.company.FileAndFileFunctions.ReadWriteFile;
 import com.company.InterfacesNAbstractClass.DialogNListPrint;
 
 import java.util.ArrayList;
@@ -9,12 +10,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class WorkerAction extends DialogNListPrint {
+
     private String projectName;
-
     ClientListClass clientListClass = new ClientListClass();
-
     HashMap<String, Integer> statisticHashMap = new HashMap<>();
     List<HashMap> hashMapList = new ArrayList<>();
+    ReadWriteFile File = new ReadWriteFile();
+    String WorkerStatisticFile = "src/com/company/FileAndFileFunctions/WorkerStatistic.json";
 
     public String getProjectName() {
         return projectName;
@@ -43,5 +45,7 @@ public class WorkerAction extends DialogNListPrint {
 
         statisticHashMap.put(workerNProjectName, workHours);
         hashMapList.add(statisticHashMap);
+        File.writeToFile(WorkerStatisticFile,hashMapList);
+
     }
 }
